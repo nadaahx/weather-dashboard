@@ -44,30 +44,6 @@ function saveCity(city) {
 // =========================
 // Load cities
 // =========================
-// function loadCities() {
-//     fetch("DB_Ops.php", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/x-www-form-urlencoded"
-//         },
-//         body: "action=get"
-//     })
-//     .then(res => res.json())
-//     .then(data => {
-//         let list = document.getElementById("savedCities");
-//         list.innerHTML = "";
-
-//         data.forEach(city => {
-//             list.innerHTML += `
-//                 <li>
-//                     ${city.city_name}
-//                     <button onclick="deleteCity(${city.id})">X</button>
-//                 </li>
-//             `;
-//         });
-//     });
-// }
-
 function loadCities() {
     fetch("DB_Ops.php", {
         method: "POST",
@@ -81,22 +57,64 @@ function loadCities() {
         let list = document.getElementById("savedCities");
         list.innerHTML = "";
 
+        let html = "";
+
         data.forEach(city => {
-            list.innerHTML += `
-                <li>
-                    <span class="city-item" onclick="selectCity('${city.city_name}')">
-                        ${city.city_name}
-                    </span>
-                    <button onclick="deleteCity(${city.id})">X</button>
-                </li>
-            `;
+            let noteText = city.note 
+                ? `<br><small style="color: gray;">Note: ${city.note}</small>` 
+                : "";
+
+            let safeNote = (city.note || "").replace(/'/g, "\\'");
+
+            html += `
+            <li>
+                <span class="city-item" onclick="selectCity('${city.city_name}')">
+                    <b>${city.city_name}</b> ${noteText}
+                </span>
+
+                <div class="actions">
+                    <button onclick="editNote(${city.id}, '${safeNote}')">Edit</button>
+                    <button onclick="deleteCity(${city.id})" class="delete-btn">X</button>
+                </div>
+            </li>
+        `;
         });
+
+        list.innerHTML = html;
     });
 }
 
 function selectCity(city) {
     document.getElementById("cityInput").value = city;
     searchWeather(); // auto search immediately
+}
+
+
+
+// =========================
+// Edit Note (Update)
+// =========================
+function editNote(id, currentNote) {
+    let newNote = prompt("Enter a note for this city:", currentNote);
+
+    if (newNote === null) return; 
+
+    fetch("DB_Ops.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `action=update&id=${id}&note=${encodeURIComponent(newNote)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            loadCities(); 
+        } else {
+            alert(data.error);
+        }
+    })
+    .catch(error => console.error("Error:", error));
 }
 
 // =========================
