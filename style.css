@@ -94,3 +94,23 @@ li {
 .city-item:active {
     transform: scale(0.95);
 }
+.actions {
+    display: flex;
+    gap: 8px; /* space between buttons */
+    align-items: center;
+}
+
+/* Smaller buttons (looks cleaner) */
+.actions button {
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+/* Make delete button red (UX improvement) */
+.delete-btn {
+    background: #e74c3c;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
