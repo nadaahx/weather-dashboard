@@ -64,13 +64,13 @@ elseif ($action === "get") {
     while ($row = $result->fetch_assoc()) {
         $cities[] = [
             "id" => $row['id'],
-            "city_name" => htmlspecialchars($row['city_name'])
+            "city_name" => htmlspecialchars($row['city_name']),
+            "note" => htmlspecialchars($row['note'] ?? "")
         ];
     }
 
     echo json_encode($cities);
 }
-
 
 // =========================
 // DELETE (Remove City)
@@ -96,6 +96,27 @@ elseif ($action === "delete") {
 
 
 // =========================
+// Update City Note
+// =========================
+elseif ($action === "update"){
+    $id = $_POST['id'];
+    $note = $_POST['note'];
+
+    // Using prepared statements for security (Rubric requirement!)
+    $stmt = $conn->prepare("UPDATE cities SET note = ? WHERE id = ?");
+    $stmt->bind_param("si", $note, $id);
+
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["error" => "Failed to update note."]);
+    }
+    $stmt->close();
+    exit;
+}
+
+
+// =========================
 // UNKNOWN ACTION
 // =========================
 else {
@@ -104,3 +125,4 @@ else {
 
 $conn->close();
 ?>
+
