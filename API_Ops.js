@@ -1,3 +1,7 @@
+
+
+
+
 function searchWeather() {
     let city = document.getElementById("cityInput").value;
 
