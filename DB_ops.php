@@ -1,7 +1,6 @@
 <?php
 header("Content-Type: application/json");
 
-// DB connection
 $conn = new mysqli("localhost", "root", "", "weather_db");
 
 if ($conn->connect_error) {
@@ -9,7 +8,6 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Ensure action exists
 if (!isset($_POST['action'])) {
     echo json_encode(["error" => "No action provided"]);
     exit();
@@ -17,9 +15,7 @@ if (!isset($_POST['action'])) {
 
 $action = $_POST['action'];
 
-// =========================
-// CREATE (Save City)
-// =========================
+
 if ($action === "save") {
 
     $city = trim($_POST['city'] ?? "");
@@ -115,10 +111,6 @@ elseif ($action === "update"){
     exit;
 }
 
-
-// =========================
-// UNKNOWN ACTION
-// =========================
 else {
     echo json_encode(["error" => "Invalid action"]);
 }
