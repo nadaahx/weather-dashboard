@@ -21,6 +21,5 @@ if ($response === FALSE) {
     exit();
 }
 
-// IMPORTANT: return raw JSON ONLY
 echo $response;
 ?>
