@@ -28,13 +28,18 @@
         <div id="weatherResult" class="weather-card hidden" aria-live="polite"></div>
     </section>
 
-
     <!-- ── SAVED CITIES ────────────────────────────────── -->
     <section class="saved-section">
-        <h3 class="section-title">📍 Saved Cities</h3>
-        <ul id="savedCities" class="city-list" aria-live="polite">
-            <li class="city-placeholder">No cities saved yet.</li>
-        </ul>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <h3 class="section-title">📍 Saved Cities</h3>
+            <ul id="savedCities" class="city-list" aria-live="polite">
+                <li class="city-placeholder">No cities saved yet.</li>
+            </ul>
+        <?php else: ?>
+            <div class="login-prompt">
+                <p>🔒 <a href="#" id="promptLoginBtn">Login</a> or <a href="#" id="promptSignupBtn">sign up</a> to save cities and access them anytime.</p>
+            </div>
+        <?php endif; ?>
     </section>
 
 </main>
@@ -42,31 +47,6 @@
 <!-- ── SCRIPTS ─────────────────────────────────────────── -->
 <script src="API_Ops.js"></script>
 <script src="script.js"></script>
-
-<!-- Upload script (inline to keep Upload.php logic separate) -->
-<script>
-document.getElementById("profilePic").addEventListener("change", function () {
-    const name = this.files[0] ? this.files[0].name : "No file chosen";
-    document.getElementById("fileName").textContent = name;
-});
-
-document.getElementById("uploadBtn").addEventListener("click", function () {
-    const fileInput = document.getElementById("profilePic");
-    const msgEl    = document.getElementById("uploadMsg");
-    const preview  = document.getElementById("profilePreview");
-
-    // Client-side validation
-    if (!fileInput.files[0]) {
-        msgEl.textContent  = "⚠️ Please choose a file first.";
-        msgEl.className    = "upload-msg error";
-        return;
-    }
-
-
-    
-
-    
-});
-</script>
+<script src="auth.js"></script>
 
 <?php include 'footer.php'; ?>
