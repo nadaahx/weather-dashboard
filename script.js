@@ -1,5 +1,3 @@
-// script.js – SkyScope Weather Dashboard
-// IS333 Web-Based Information Systems · Spring 2026
 
 document.addEventListener("DOMContentLoaded", function () {
 
