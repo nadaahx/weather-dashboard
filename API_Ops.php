@@ -9,7 +9,7 @@ if (!isset($_GET['city'])) {
 }
 
 $city = $_GET['city'];
-$apiKey = "key"; #############update
+$apiKey = "5dc3266d39e84df6b90163444262204"; 
 
 
 $url = "https://api.weatherapi.com/v1/current.json?key=$apiKey&q=$city";
