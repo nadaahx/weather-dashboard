@@ -1,18 +1,42 @@
 <?php
 header("Content-Type: application/json");
-
 error_reporting(0);
 
+$apiKey = "603c36f65bb8428caa6221304262304";
+
+// =============================
+// Autocomplete / Search suggest
+// =============================
+if (isset($_GET['search'])) {
+    $query = trim($_GET['search']);
+
+    if (empty($query)) {
+        echo json_encode([]);
+        exit();
+    }
+
+    $url = "https://api.weatherapi.com/v1/search.json?key=$apiKey&q=" . urlencode($query);
+    $response = file_get_contents($url);
+
+    if ($response === FALSE) {
+        echo json_encode([]);
+        exit();
+    }
+
+    echo $response; // Returns array of matching cities
+    exit();
+}
+
+// =============================
+// Get current weather
+// =============================
 if (!isset($_GET['city'])) {
     echo json_encode(["error" => "City missing"]);
     exit();
 }
 
 $city = $_GET['city'];
-$apiKey = "5dc3266d39e84df6b90163444262204"; 
-
-
-$url = "https://api.weatherapi.com/v1/current.json?key=$apiKey&q=$city";
+$url = "https://api.weatherapi.com/v1/current.json?key=$apiKey&q=" . urlencode($city);
 
 $response = file_get_contents($url);
 
@@ -21,6 +45,5 @@ if ($response === FALSE) {
     exit();
 }
 
-// IMPORTANT: return raw JSON ONLY
 echo $response;
 ?>
