@@ -1,12 +1,30 @@
+<?php
+// header.php – included at the top of index.php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Weather Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyScope – Weather Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <h1>🌦️ Weather App</h1>
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo">
+            <span class="logo-icon">⛅</span>
+            <span class="logo-text">SkyScope</span>
+        </div>
+        <nav class="header-nav">
+            <span class="nav-label">Weather Dashboard</span>
+        </nav>
+        <div class="header-right">
+            <span class="live-badge">● LIVE</span>
+        </div>
+    </div>
 </header>
