@@ -1,0 +1,296 @@
+:root {
+    /* New Deep Palette */
+    --navy: #0f172a;
+    --navy-light: #1e293b;
+    --accent: #fb923c; 
+    --accent-glow: rgba(251, 146, 60, 0.3);
+    --glass: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    background: radial-gradient(circle at 0% 0%, #1e293b 0%, #0f172a 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Layout Components --- */
+header {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+header h1 { 
+    font-family: 'Syne', sans-serif; 
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--accent), #ffedd5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1.5px;
+}
+
+/* --- Fixed Dropdown Styles --- */
+.glass-dropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: var(--navy-light) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    z-index: 999;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+.glass-dropdown li {
+    padding: 12px 20px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.glass-dropdown li:hover {
+    background: var(--accent) !important;
+    color: var(--navy) !important;
+    padding-left: 25px;
+}
+
+.search-wrapper {
+    display: flex;
+    gap: 12px;
+    background: var(--glass);
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    transition: border-color 0.3s ease;
+    position: relative;
+}
+
+.search-wrapper:focus-within {
+    border-color: var(--accent);
+}
+
+input {
+    background: transparent;
+    border: none;
+    padding: 12px;
+    color: white;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+}
+
+input::placeholder { color: var(--text-dim); }
+
+button {
+    padding: 12px 28px;
+    background: var(--accent);
+    color: var(--navy);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+#weatherResult {
+    margin-top: 30px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+#savedCities {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+#savedCities li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 12px;
+    padding: 18px;
+    border-radius: 16px;
+    transition: transform 0.2s ease;
+}
+
+#savedCities li:hover {
+    transform: translateX(5px);
+    background: rgba(255,255,255,0.05);
+}
+
+.delete-btn {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+footer {
+    margin-top: auto;
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+}
+
+footer::before {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--accent);
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.storage-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(251, 146, 60, 0.1);
+    border: 1px solid var(--accent-glow);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 15px;
+}
+
+.note-editor-container {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.note-textarea {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-main);
+    padding: 10px;
+    font-size: 0.9rem;
+    resize: vertical;
+    outline: none;
+}
+
+/* --- Mobile Responsiveness --- */
+
+/* Targets screens smaller than 600px (standard smartphones) */
+@media screen and (max-width: 600px) {
+    
+    /* 1. Container Adjustments */
+    .container {
+        padding: 20px 15px;
+        max-width: 100%; /* Use full width on mobile */
+    }
+
+    /* 2. Header Scaling */
+    header {
+        padding: 12px 20px;
+    }
+
+    header h1 {
+        font-size: 1.1rem; /* Slightly smaller for mobile screens */
+        letter-spacing: 1px;
+    }
+
+    /* 3. Search Bar Layout */
+    .search-wrapper {
+        flex-direction: column; /* Stack input and button vertically */
+        padding: 15px;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%; /* Make button full width for easier tapping */
+        padding: 14px;
+    }
+
+    /* 4. Weather Card Scaling */
+    #weatherResult {
+        padding: 25px 15px;
+        margin-top: 20px;
+    }
+
+    #weatherResult h3 {
+        font-size: 1.2rem;
+    }
+
+    /* 5. Saved Cities List */
+    #savedCities li {
+        padding: 15px;
+    }
+
+    /* Ensure actions (Edit/Delete) stack if the city name is long */
+    #savedCities li > div {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* 6. Footer Text Scaling */
+    footer {
+        padding: 20px 10px;
+    }
+
+    .footer-credits, .footer-copy {
+        font-size: 0.75rem;
+    }
+}
