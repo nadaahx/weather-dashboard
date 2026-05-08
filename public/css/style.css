@@ -302,3 +302,6 @@ footer::before {
     footer { padding: 20px 10px; }
     .footer-credits, .footer-copy { font-size: 0.75rem; }
 }
+.error-placeholder::placeholder {
+    color: #fb923c;
+}

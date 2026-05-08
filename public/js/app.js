@@ -12,9 +12,21 @@ const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.content ??
 function searchWeather() {
     const city = document.getElementById('cityInput').value.trim();
 
-    // Client-side validation (retained from Assignment 1)
+    const oldError = document.getElementById("clientError");
+    if (oldError) oldError.remove();
+
     if (!city) {
-        alert('Please enter a city name.');
+        showError(" Please enter a city name.");
+        return;
+    }
+
+    if (!/^[a-zA-Z\s\-'\.]+$/.test(city)) {
+        showError(" City name can only contain letters, spaces, or hyphens.");
+        return;
+    }
+
+    if (city.length > 100) {
+        showError(" City name is too long (max 100 characters).");
         return;
     }
 
@@ -190,7 +202,21 @@ function deleteCity(id) {
         .then(() => loadCities())
         .catch(err => console.error('Delete error:', err));
 }
-
+function showError(message) {
+    const cityInput = document.getElementById("cityInput");
+    const originalValue = cityInput.value;
+    
+    cityInput.value = "";
+    cityInput.placeholder = message;
+    cityInput.style.setProperty('--placeholder-color', '#fb923c');
+    cityInput.classList.add('error-placeholder');
+    
+    setTimeout(() => {
+        cityInput.placeholder = "Search City...";
+        cityInput.classList.remove('error-placeholder');
+        cityInput.value = originalValue;
+    }, 3000);
+}
 // ─────────────────────────────────────────
 // DOM Ready
 // ─────────────────────────────────────────
