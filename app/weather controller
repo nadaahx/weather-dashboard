@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class WeatherController extends Controller
+{
+    // ── MAIN PAGE – GET / ───────────────────────────────
+    public function index()
+    {
+        return view('weather.index');
+    }
+
+    // ── WEATHER API PROXY – GET /weather?city= ──────────
+    public function fetch(Request $request)
+    {
+        // Server-side validation
+        $request->validate([
+            'city' => 'required|string|max:100',
+        ], [
+            'city.required' => 'Please provide a city name.',
+            'city.max'      => 'City name is too long.',
+        ]);
+
+        $city   = $request->input('city');
+        $apiKey = env('WEATHER_API_KEY');
+        $url    = "https://api.weatherapi.com/v1/current.json?key={$apiKey}&q=" . urlencode($city);
+
+        // cURL request (API key stays server-side)
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 10,
+            CURLOPT_FOLLOWLOCATION => true,
+        ]);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
+        curl_close($ch);
+
+        // Handle cURL failure
+        if ($response === false || $curlError) {
+            return response()->json([
+                'error' => ['message' => 'Weather service is unavailable. Please try again later.']
+            ], 503);
+        }
+
+        // Pass WeatherAPI response straight through (preserves error messages)
+        return response($response, $httpCode)
+            ->header('Content-Type', 'application/json');
+    }
+}
