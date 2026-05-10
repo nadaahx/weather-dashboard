@@ -1,0 +1,13 @@
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="logo-icon">⛅</span>
+            <span>SkyScope</span>
+        </div>
+        <p class="footer-credits">
+            Powered by <a href="https://www.weatherapi.com" target="_blank">WeatherAPI</a>
+            &nbsp;·&nbsp; IS333 Web-Based Information Systems &nbsp;·&nbsp; Spring 2026
+        </p>
+        <p class="footer-copy">Faculty of Computing &amp; Artificial Intelligence – Cairo University</p>
+    </div>
+</footer>
